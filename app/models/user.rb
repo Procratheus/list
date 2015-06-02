@@ -1,3 +1,3 @@
 class User < ActiveRecord::Base
-  has_many :lists
+  has_one :list, dependent: :destroy
 end
