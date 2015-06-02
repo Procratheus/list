@@ -16,6 +16,9 @@ Bundler.require(*Rails.groups)
 
 module ListTxt
   class Application < Rails::Application
+    ## customization for autoloading of serializer directory
+    config.autoload_paths += %w(#{config.root/app/serializers})
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
