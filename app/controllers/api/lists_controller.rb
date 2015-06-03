@@ -3,7 +3,7 @@ class Api::ListsController < ApiController
 
   def create
     @user = User.find(params[:user_id])
-    @list = @user.list.create(list_params)
+    @list = @user.list.new(list_params)
 
     if @list.save
       render json: @list
@@ -36,7 +36,7 @@ class Api::ListsController < ApiController
   private
 
   def list_params
-    params.require(:list).permit(:title)
+    params.require(:list).permit(:title, :permissions)
   end
   
 end
