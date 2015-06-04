@@ -21,7 +21,7 @@ class Api::UsersController < ApiController
     if @user.destroy
       render json: {}, status: :no_content
     else
-      render json: {}, status: :not_content
+      render json: {}, status: :not_found
     end
   end
 

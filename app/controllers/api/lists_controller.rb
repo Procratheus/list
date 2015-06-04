@@ -1,9 +1,14 @@
 class Api::ListsController < ApiController
   before_action :authenticated?
 
+  def index 
+    @lists = List.all
+    render json: @lists, each_serializer: ListSerializer
+  end
+
   def create
     @user = User.find(params[:user_id])
-    @list = @user.list.new(list_params)
+    @list = @user.build_list(list_params)
 
     if @list.save
       render json: @list
@@ -29,7 +34,7 @@ class Api::ListsController < ApiController
     if @list.destroy
       render json: {}, status: :no_content
     else
-      redner json: {}, status: :not_found
+      render json: {}, status: :not_found
     end
   end
 
