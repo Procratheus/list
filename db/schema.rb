@@ -1,4 +1,3 @@
-
 # encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
@@ -12,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150604193928) do
+ActiveRecord::Schema.define(version: 20150608215855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "api_keys", force: :cascade do |t|
+    t.string   "access_token"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "user_id"
+  end
+
+  add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id", using: :btree
 
   create_table "items", force: :cascade do |t|
     t.integer  "list_id"
@@ -44,6 +52,7 @@ ActiveRecord::Schema.define(version: 20150604193928) do
     t.string   "password"
   end
 
+  add_foreign_key "api_keys", "users"
   add_foreign_key "items", "lists"
   add_foreign_key "lists", "users"
 end

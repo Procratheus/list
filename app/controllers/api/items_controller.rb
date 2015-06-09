@@ -7,13 +7,22 @@ class Api::ItemsController < ApiController
   end
 
   def create
-    @list = List.find(params[:list_id])
-    @item = @list.items.build(item_params)
+    @item = current_user.list.items.build(item_params)
 
     if @item.save
       render json: @item
     else
       render json: { errors: @item.errors.full_messages }
+    end
+  end
+
+  def destroy
+    @item = current_user.list.items.find(params[:id])
+
+    if @item.destroy
+      render json: {}, status: :no_content
+    else
+      render json: {}, status: :not_found
     end
   end
 

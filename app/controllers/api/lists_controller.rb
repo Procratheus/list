@@ -7,8 +7,7 @@ class Api::ListsController < ApiController
   end
 
   def create
-    @user = User.find(params[:user_id])
-    @list = @user.build_list(list_params)
+    @list = current_user.build_list(list_params)
 
     if @list.save
       render json: @list
@@ -18,8 +17,7 @@ class Api::ListsController < ApiController
   end
 
   def update
-    @user = User.find(params[:user_id])
-    @list = @user.list.find(params[:id])
+    @list = current_user.list.find(params[:id])
     
     if @list.update(list_params)
       render json: @list
@@ -29,7 +27,7 @@ class Api::ListsController < ApiController
   end
 
   def destroy
-    @list = List.find(params[:id])
+    @list = current_user.list.find(params[:id])
 
     if @list.destroy
       render json: {}, status: :no_content
