@@ -3,7 +3,6 @@ class Api::ListsController < ApiController
 
   def index 
     @lists = List.all
-    render json: @lists, each_serializer: ListSerializer
   end
 
   def create
@@ -17,8 +16,7 @@ class Api::ListsController < ApiController
   end
 
   def update
-    @list = current_user.list.find(params[:id])
-    
+    @list = current_user.list.find(params[:id]) 
     if @list.update(list_params)
       render json: @list
     else

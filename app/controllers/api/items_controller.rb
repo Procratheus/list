@@ -3,7 +3,6 @@ class Api::ItemsController < ApiController
 
   def index
     @items = Item.all
-    render json: @item, each_serializer: ItemSerializer
   end
 
   def create
@@ -13,6 +12,16 @@ class Api::ItemsController < ApiController
       render json: @item
     else
       render json: { errors: @item.errors.full_messages }
+    end
+  end
+
+  def update
+    @item = current_user.list.items.find(params[:id])
+    
+    if @item.update(list_params)
+      render json: @item
+    else
+      render json: { errors: @item.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
