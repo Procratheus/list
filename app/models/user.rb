@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_one :list, dependent: :destroy
+  has_many :lists, dependent: :destroy
   has_one :api_key, dependent: :destroy
   before_create :generate_access_token
 

@@ -1,7 +1,8 @@
-json.array! @users do |user|
+json.array! @users do | user |
   json.username user.username
-  json.list do 
-    json.title user.list.title
-    json.permissions user.list.permissions
+  json.list user.lists do |list|
+    json.title list.title
+    json.permissions list.permissions
   end
+
 end
